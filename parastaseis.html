@@ -257,6 +257,21 @@
 
   .flag-btn{display:inline-flex;align-items:center;gap:6px;}
   .flag-btn svg{border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,0.1);}
+
+  .admin-only{display:none !important;}
+  body.is-admin .admin-only{display:inline-flex !important;}
+  body.is-admin .add-section-btn.admin-only,
+  body.is-admin .poster-add.admin-only{display:flex !important;}
+  #admin-login-btn{
+    display:inline-flex;align-items:center;gap:6px;background:var(--cream-2);border:1px solid rgba(0,0,0,0.1);
+    color:var(--ink);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+    padding:6px 12px;border-radius:100px;cursor:pointer;margin-top:0.6rem;
+  }
+  #admin-login-btn:hover{background:#fff;}
+  body.is-admin #admin-login-btn{display:none;}
+  #admin-status{display:none;font-size:12px;color:var(--ink);opacity:0.6;margin-top:0.6rem;align-items:center;gap:8px;}
+  body.is-admin #admin-status{display:flex;}
+  #admin-status button{background:none;border:none;color:var(--red-dark);font-weight:600;cursor:pointer;font-size:12px;text-decoration:underline;}
 </style>
 </head>
 <body>
@@ -286,6 +301,31 @@ function googleTranslateElementInit() {
       <button class="flag-btn active" data-lang="el" onclick="setLang('el')"><svg width="20" height="14" viewBox="0 0 20 14" style="flex:none;"><rect width="20" height="14" fill="#fff"/><g fill="#0D5EAF"><rect y="0" width="20" height="1.55"/><rect y="3.11" width="20" height="1.55"/><rect y="6.22" width="20" height="1.55"/><rect y="9.33" width="20" height="1.55"/><rect y="12.44" width="20" height="1.55"/><rect x="0" y="0" width="7.78" height="7.78"/></g><rect x="3.1" y="0" width="1.55" height="7.78" fill="#fff"/><rect x="0" y="3.1" width="7.78" height="1.55" fill="#fff"/></svg> ΕΛ</button>
       <button class="flag-btn" data-lang="en" onclick="setLang('en')"><svg width="20" height="14" viewBox="0 0 20 14" style="flex:none;"><rect width="20" height="14" fill="#00247D"/><path d="M0,0 L20,14 M20,0 L0,14" stroke="#fff" stroke-width="2.4"/><path d="M0,0 L20,14 M20,0 L0,14" stroke="#CF142B" stroke-width="1"/><path d="M10,0 V14 M0,7 H20" stroke="#fff" stroke-width="4"/><path d="M10,0 V14 M0,7 H20" stroke="#CF142B" stroke-width="2.4"/></svg> EN</button>
     </div>
+    
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<div id="admin-login-btn" class="admin-only-toggle" onclick="netlifyIdentity.open()" style="display:inline-flex;">🔒 Σύνδεση διαχειριστή</div>
+<div id="admin-status">
+  <span id="admin-email"></span>
+  <button onclick="netlifyIdentity.logout()">Αποσύνδεση</button>
+</div>
+<script>
+  netlifyIdentity.on('init', function(user){
+    if(user){
+      document.body.classList.add('is-admin');
+      document.getElementById('admin-email').textContent = user.email;
+    }
+  });
+  netlifyIdentity.on('login', function(user){
+    document.body.classList.add('is-admin');
+    document.getElementById('admin-email').textContent = user.email;
+    netlifyIdentity.close();
+  });
+  netlifyIdentity.on('logout', function(){
+    document.body.classList.remove('is-admin');
+  });
+  netlifyIdentity.init();
+</script>
+
     <ul class="nav-list">
       <li><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 11l8-6 8 6M6 10v9h12v-9"/></svg><span class="i18n" data-el="Αρχική" data-en="Home">Αρχική</span></a></li>
       <li><a href="o-xoros-mas.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6"/></svg><span class="i18n" data-el="Ο χώρος μας" data-en="Our Space">Ο χώρος μας</span></a></li>
@@ -306,7 +346,7 @@ function googleTranslateElementInit() {
       <div class="eyebrow"><span class="eyebrow-dot"></span><span class="i18n" data-el="Στη σκηνή μας" data-en="On our stage">Στη σκηνή μας</span></div>
       <h1><span class="i18n" data-el="Παραστάσεις" data-en="Performances">Παραστάσεις</span></h1>
       <p><span class="i18n" data-el="Η σκηνή του Τεχνουργείου φιλοξενεί δεκάδες παραστάσεις κάθε χρόνο. Πάτα σε μια αφίσα για να δεις φωτογραφίες, σχόλια και δελτία τύπου." data-en="The Texnourgeion stage hosts dozens of performances every year. Tap a poster to see photos, comments and press releases.">Η σκηνή του Τεχνουργείου φιλοξενεί δεκάδες παραστάσεις κάθε χρόνο. Πάτα σε μια αφίσα για να δεις φωτογραφίες, σχόλια και δελτία τύπου.</span></p>
-      <button class="page-edit-btn" onclick="togglePageAdd()">✎ Επεξεργασία ενότητας</button>
+      <button class="page-edit-btn admin-only" onclick="togglePageAdd()">✎ Επεξεργασία ενότητας</button>
       <div class="page-add-panel" id="page-add-panel">
         <input type="text" id="new-sub-name" placeholder="π.χ. Χορευτικές παραστάσεις">
         <button onclick="addSubsection()">Πρόσθεσε υποενότητα</button>
@@ -519,14 +559,14 @@ function renderAll(){
         '<div class="poster-label">' + p.title + '</div>' +
       '</div>';
     }).join('');
-    var addTile = '<div class="poster-add" onclick="triggerPosterUpload(\'' + sub.slug + '\')">' +
+    var addTile = '<div class="poster-add admin-only" onclick="triggerPosterUpload(\'' + sub.slug + '\')">' +
       '<span class="plus">+</span><span>Πρόσθεσε αφίσα</span>' +
       '<input type="file" accept="image/*" id="poster-file-' + sub.slug + '" style="display:none" onchange="handleNewPoster(\'' + sub.slug + '\')">' +
     '</div>';
     html += '<div class="sub-block">' +
       '<div class="sub-head">' +
         '<h2>' + sub.title + '</h2>' +
-        '<button class="edit-btn" onclick="toggleSubEdit(\'' + sub.slug + '\')">✎ Επεξεργασία</button>' +
+        '<button class="edit-btn admin-only" onclick="toggleSubEdit(\'' + sub.slug + '\')">✎ Επεξεργασία</button>' +
       '</div>' +
       '<div class="sub-title-edit" id="subtitle-edit-' + sub.slug + '">' +
         '<input type="text" id="subtitle-input-' + sub.slug + '" value="' + sub.title.replace(/"/g,'&quot;') + '">' +
