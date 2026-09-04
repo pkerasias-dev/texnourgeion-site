@@ -282,27 +282,38 @@ function googleTranslateElementInit() {
     </div>
     
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<div id="admin-login-btn" class="admin-only-toggle" onclick="netlifyIdentity.open()" style="display:inline-flex;">🔒 Σύνδεση διαχειριστή</div>
+<div id="admin-login-btn" class="admin-only-toggle" onclick="openAdminLogin()" style="display:inline-flex;">🔒 Σύνδεση διαχειριστή</div>
 <div id="admin-status">
   <span id="admin-email"></span>
-  <button onclick="netlifyIdentity.logout()">Αποσύνδεση</button>
+  <button onclick="if(typeof netlifyIdentity!=='undefined')netlifyIdentity.logout()">Αποσύνδεση</button>
 </div>
 <script>
-  netlifyIdentity.on('init', function(user){
-    if(user){
+  function openAdminLogin(){
+    if(typeof netlifyIdentity === 'undefined'){
+      alert('Το σύστημα σύνδεσης δεν φόρτωσε. Αν έχεις κάποιο ad-blocker ή privacy extension, απενεργοποίησέ το για αυτή τη σελίδα και κάνε ανανέωση.');
+      return;
+    }
+    netlifyIdentity.open();
+  }
+  if(typeof netlifyIdentity !== 'undefined'){
+    netlifyIdentity.on('init', function(user){
+      if(user){
+        document.body.classList.add('is-admin');
+        document.getElementById('admin-email').textContent = user.email;
+      }
+    });
+    netlifyIdentity.on('login', function(user){
       document.body.classList.add('is-admin');
       document.getElementById('admin-email').textContent = user.email;
-    }
-  });
-  netlifyIdentity.on('login', function(user){
-    document.body.classList.add('is-admin');
-    document.getElementById('admin-email').textContent = user.email;
-    netlifyIdentity.close();
-  });
-  netlifyIdentity.on('logout', function(){
-    document.body.classList.remove('is-admin');
-  });
-  netlifyIdentity.init();
+      netlifyIdentity.close();
+    });
+    netlifyIdentity.on('logout', function(){
+      document.body.classList.remove('is-admin');
+    });
+    netlifyIdentity.init();
+  } else {
+    console.warn('netlify-identity-widget.js δεν φόρτωσε (πιθανό ad-blocker).');
+  }
 </script>
 
     <ul class="nav-list">
