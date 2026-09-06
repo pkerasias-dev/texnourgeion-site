@@ -1649,45 +1649,77 @@ function saveContact(){
   var addr = document.getElementById('input-addr').value.trim();
   var phone = document.getElementById('input-phone').value.trim();
   var mail = document.getElementById('input-mail').value.trim();
-  localStorage.setItem('contact_addr', addr);
-  localStorage.setItem('contact_phone', phone);
-  localStorage.setItem('contact_mail', mail);
   document.getElementById('addr-display').textContent = addr;
   document.getElementById('phone-display').textContent = phone;
   document.getElementById('phone-display').href = 'tel:+30' + phone.replace(/\s/g,'');
   document.getElementById('mail-display').textContent = mail;
   document.getElementById('mail-display').href = 'mailto:' + mail;
   contactToggleEdit();
+  saveSiteData({ contact: { addr: addr, phone: phone, mail: mail } }).catch(function(err){
+    alert('Η αλλαγή φαίνεται στη σελίδα σου τώρα, αλλά δεν αποθηκεύτηκε μόνιμα:\n' + err.message);
+  });
 }
 function toggleSocialEdit(){
   document.getElementById('social-edit-panel').classList.toggle('open');
 }
+
+// --- Μόνιμη αποθήκευση περιεχομένου μέσω GitHub (αντί για localStorage) ---
+function loadSiteData(){
+  return fetch('/content/data.json', { cache: 'no-store' })
+    .then(function(r){ return r.ok ? r.json() : {}; })
+    .catch(function(){ return {}; });
+}
+function saveSiteData(patch){
+  if (typeof netlifyIdentity === 'undefined' || !netlifyIdentity.currentUser()) {
+    return Promise.reject(new Error('Πρέπει να είσαι συνδεδεμένος ως διαχειριστής.'));
+  }
+  return netlifyIdentity.currentUser().jwt().then(function(token){
+    return fetch('/.netlify/functions/save-content', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(patch)
+    }).then(function(r){
+      if(!r.ok){ return r.text().then(function(t){ throw new Error(t); }); }
+      return r.json();
+    });
+  });
+}
+
 function saveSocials(){
   var keys = ['facebook','instagram','youtube','linkedin','tiktok'];
+  var patch = {};
   keys.forEach(function(k){
     var val = document.getElementById('soc-input-' + k).value.trim();
     if(val){
-      localStorage.setItem('social_' + k, val);
       document.getElementById('social-' + k).href = val;
+      patch[k] = val;
     }
   });
   toggleSocialEdit();
+  saveSiteData({ socials: patch }).catch(function(err){
+    alert('Η αλλαγή φαίνεται στη σελίδα σου τώρα, αλλά δεν αποθηκεύτηκε μόνιμα:\n' + err.message);
+  });
 }
 window.addEventListener('DOMContentLoaded', function(){
-  var keys = ['facebook','instagram','youtube','linkedin','tiktok'];
-  keys.forEach(function(k){
-    var val = localStorage.getItem('social_' + k);
-    if(val){
-      document.getElementById('social-' + k).href = val;
-      document.getElementById('soc-input-' + k).value = val;
+  loadSiteData().then(function(data){
+    var socials = data.socials || {};
+    ['facebook','instagram','youtube','linkedin','tiktok'].forEach(function(k){
+      if(socials[k]){
+        document.getElementById('social-' + k).href = socials[k];
+        document.getElementById('soc-input-' + k).value = socials[k];
+      }
+    });
+    var contact = data.contact || {};
+    if(contact.addr) document.getElementById('addr-display').textContent = contact.addr;
+    if(contact.phone){
+      document.getElementById('phone-display').textContent = contact.phone;
+      document.getElementById('phone-display').href = 'tel:+30' + contact.phone.replace(/\s/g,'');
+    }
+    if(contact.mail){
+      document.getElementById('mail-display').textContent = contact.mail;
+      document.getElementById('mail-display').href = 'mailto:' + contact.mail;
     }
   });
-  var addr = localStorage.getItem('contact_addr');
-  var phone = localStorage.getItem('contact_phone');
-  var mail = localStorage.getItem('contact_mail');
-  if(addr) document.getElementById('addr-display').textContent = addr;
-  if(phone){ document.getElementById('phone-display').textContent = phone; }
-  if(mail){ document.getElementById('mail-display').textContent = mail; }
 });
 
 
