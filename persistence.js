@@ -2,6 +2,30 @@
    Public visitors read the shared data.json.
    Logged-in administrators can persist editor changes through the Netlify Function. */
 (function () {
+  function showToast(message, isError) {
+    var el = document.getElementById('tex-save-toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'tex-save-toast';
+      el.style.cssText = 'position:fixed;bottom:24px;left:50%;' +
+        'transform:translateX(-50%) translateY(20px);color:#fff;' +
+        'padding:10px 22px;border-radius:999px;font:600 14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;' +
+        'box-shadow:0 6px 20px rgba(0,0,0,.28);z-index:99999;opacity:0;' +
+        'transition:opacity .25s ease, transform .25s ease;pointer-events:none;';
+      document.body.appendChild(el);
+    }
+    el.textContent = message;
+    el.style.background = isError ? '#c0392b' : '#1f8a55';
+    el.style.opacity = '1';
+    el.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(el._hideTimer);
+    el._hideTimer = setTimeout(function () {
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 2200);
+  }
+  window.TexToast = showToast;
+
   var nativeSet = localStorage.setItem.bind(localStorage);
   var nativeRemove = localStorage.removeItem.bind(localStorage);
   var nativeClear = localStorage.clear.bind(localStorage);
@@ -45,8 +69,11 @@
     if (!ready || !isAdmin()) return;
     clearTimeout(timer);
     timer = setTimeout(function () {
-      sync().catch(function (err) {
+      sync().then(function () {
+        showToast('✓ Αποθηκεύτηκε!');
+      }).catch(function (err) {
         console.error('Texnourgeion: αποτυχία μόνιμης αποθήκευσης', err);
+        showToast('⚠ Δεν αποθηκεύτηκε μόνιμα', true);
       });
     }, 700);
   }

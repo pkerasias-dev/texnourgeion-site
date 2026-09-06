@@ -1656,8 +1656,11 @@ function saveContact(){
   document.getElementById('mail-display').textContent = mail;
   document.getElementById('mail-display').href = 'mailto:' + mail;
   contactToggleEdit();
-  saveSiteData({ contact: { addr: addr, phone: phone, mail: mail } }).catch(function(err){
-    alert('Η αλλαγή φαίνεται στη σελίδα σου τώρα, αλλά δεν αποθηκεύτηκε μόνιμα:\n' + err.message);
+  saveSiteData({ contact: { addr: addr, phone: phone, mail: mail } }).then(function(){
+    if(window.TexToast) TexToast('✓ Αποθηκεύτηκε!');
+  }).catch(function(err){
+    if(window.TexToast) TexToast('⚠ Δεν αποθηκεύτηκε μόνιμα', true);
+    else alert('Η αλλαγή φαίνεται στη σελίδα σου τώρα, αλλά δεν αποθηκεύτηκε μόνιμα:\n' + err.message);
   });
 }
 function toggleSocialEdit(){
@@ -1697,8 +1700,11 @@ function saveSocials(){
     }
   });
   toggleSocialEdit();
-  saveSiteData({ socials: patch }).catch(function(err){
-    alert('Η αλλαγή φαίνεται στη σελίδα σου τώρα, αλλά δεν αποθηκεύτηκε μόνιμα:\n' + err.message);
+  saveSiteData({ socials: patch }).then(function(){
+    if(window.TexToast) TexToast('✓ Αποθηκεύτηκε!');
+  }).catch(function(err){
+    if(window.TexToast) TexToast('⚠ Δεν αποθηκεύτηκε μόνιμα', true);
+    else alert('Η αλλαγή φαίνεται στη σελίδα σου τώρα, αλλά δεν αποθηκεύτηκε μόνιμα:\n' + err.message);
   });
 }
 window.addEventListener('DOMContentLoaded', function(){
