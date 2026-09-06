@@ -963,7 +963,6 @@ function googleTranslateElementInit() {
       <div class="social-row">
         <a href="#" id="social-facebook" class="social-btn" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round"><path d="M15 8h2V5h-2a3 3 0 00-3 3v2H9v3h3v6h3v-6h2l1-3h-3V8z"/></svg></a>
       <a href="#" id="social-instagram" class="social-btn" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.2" cy="7.8" r="0.6" fill="currentColor" stroke="none"/></svg></a>
-      <a href="#" id="social-mail" class="social-btn" target="_blank" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 6.5l8 6 8-6"/></svg></a>
       <a href="#" id="social-youtube" class="social-btn" target="_blank" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M10.5 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/></svg></a>
       <a href="#" id="social-linkedin" class="social-btn" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8" cy="8.5" r="0.9" fill="currentColor" stroke="none"/><path d="M8 11v6M12 11v6M12 13.2c0-1.3 1-2.2 2.2-2.2 1.3 0 2.1.9 2.1 2.2V17"/></svg></a>
       <a href="#" id="social-tiktok" class="social-btn" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round"><path d="M13 4v10.2a2.8 2.8 0 11-2.3-2.75"/><path d="M13 4c.4 2 2 3.4 4 3.6"/></svg></a>
@@ -975,8 +974,6 @@ function googleTranslateElementInit() {
         <input type="text" id="soc-input-facebook" placeholder="https://facebook.com/texnourgeion">
         <label>Instagram</label>
         <input type="text" id="soc-input-instagram" placeholder="https://instagram.com/texnourgeion">
-        <label>Email</label>
-        <input type="text" id="soc-input-mail" placeholder="mailto:texnourgeion@gmail.com">
         <label>YouTube</label>
         <input type="text" id="soc-input-youtube" placeholder="https://youtube.com/texnourgeion">
         <label>LinkedIn</label>
@@ -1666,7 +1663,7 @@ function toggleSocialEdit(){
   document.getElementById('social-edit-panel').classList.toggle('open');
 }
 function saveSocials(){
-  var keys = ['facebook','instagram','mail','youtube','linkedin','tiktok'];
+  var keys = ['facebook','instagram','youtube','linkedin','tiktok'];
   keys.forEach(function(k){
     var val = document.getElementById('soc-input-' + k).value.trim();
     if(val){
@@ -1677,7 +1674,7 @@ function saveSocials(){
   toggleSocialEdit();
 }
 window.addEventListener('DOMContentLoaded', function(){
-  var keys = ['facebook','instagram','mail','youtube','linkedin','tiktok'];
+  var keys = ['facebook','instagram','youtube','linkedin','tiktok'];
   keys.forEach(function(k){
     var val = localStorage.getItem('social_' + k);
     if(val){
