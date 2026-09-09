@@ -998,16 +998,14 @@ function googleTranslateElementInit() {
     </div>
     <div class="donate-box reveal">
       <button class="edit-btn admin-only" onclick="toggleDonateEdit()">✎ Επεξεργασία</button>
-      <p><strong>Δικαιούχος:</strong> <span id="donate-name-display">—</span></p>
-      <p><strong>IBAN / Viva:</strong> <span id="donate-iban-display">—</span></p>
-      <p id="donate-note-display"></p>
+      <p id="donate-note-display">Σύντομα θα μπορείς να στηρίξεις το Τεχνουργείον με δωρεά μέσω Viva.</p>
+      <a id="donate-btn" class="ticket-btn disabled" href="#" target="_blank" rel="noopener">Δες τις λεπτομέρειες →</a>
       <div class="edit-panel" id="donate-edit-panel">
-        <label>Δικαιούχος</label>
-        <input type="text" id="donate-name-input" placeholder="Σύλλογος Τεχνουργείον">
-        <label>IBAN ή σύνδεσμος Viva</label>
-        <input type="text" id="donate-iban-input" placeholder="GR.. ή https://...">
-        <label>Σημείωση (προαιρετικό)</label>
+        <label>Κείμενο</label>
         <textarea id="donate-note-input"></textarea>
+        <label>Σύνδεσμος σελίδας με λεπτομέρειες δωρεάς</label>
+        <input type="text" id="donate-url-input" placeholder="https://...">
+        <p class="hint">Άφησέ το κενό για να μείνει το κουμπί ανενεργό.</p>
         <div class="btn-row"><button class="save-btn" onclick="saveDonate()">Αποθήκευση</button></div>
       </div>
     </div>
@@ -1792,28 +1790,32 @@ TexPersist.ready.then(function(){ renderTicket(); renderDonate(); });
 
 // --- Δωρεές ---
 function renderDonate(){
-  var name = localStorage.getItem('donate_name') || '';
-  var iban = localStorage.getItem('donate_iban') || '';
-  var note = localStorage.getItem('donate_note') || '';
-  var nameEl = document.getElementById('donate-name-display');
-  if(!nameEl) return;
-  nameEl.textContent = name || '—';
-  document.getElementById('donate-iban-display').textContent = iban || '—';
-  document.getElementById('donate-note-display').textContent = note;
-  var ni = document.getElementById('donate-name-input');
-  var ii = document.getElementById('donate-iban-input');
+  var note = localStorage.getItem('donate_note');
+  var url = (localStorage.getItem('donate_url') || '').trim();
+  var noteEl = document.getElementById('donate-note-display');
+  if(!noteEl) return;
+  if(note) noteEl.textContent = note;
+  var btn = document.getElementById('donate-btn');
+  if(url){
+    btn.href = url;
+    btn.classList.remove('disabled');
+    btn.removeAttribute('aria-disabled');
+  } else {
+    btn.href = '#';
+    btn.classList.add('disabled');
+    btn.setAttribute('aria-disabled','true');
+  }
   var noi = document.getElementById('donate-note-input');
-  if(ni) ni.value = name;
-  if(ii) ii.value = iban;
-  if(noi) noi.value = note;
+  var ui = document.getElementById('donate-url-input');
+  if(noi) noi.value = note || noteEl.textContent;
+  if(ui) ui.value = url;
 }
 function toggleDonateEdit(){
   document.getElementById('donate-edit-panel').classList.toggle('open');
 }
 function saveDonate(){
-  localStorage.setItem('donate_name', document.getElementById('donate-name-input').value.trim());
-  localStorage.setItem('donate_iban', document.getElementById('donate-iban-input').value.trim());
   localStorage.setItem('donate_note', document.getElementById('donate-note-input').value.trim());
+  localStorage.setItem('donate_url', document.getElementById('donate-url-input').value.trim());
   toggleDonateEdit();
   renderDonate();
 }
