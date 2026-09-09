@@ -194,6 +194,34 @@
   .space-text p{font-size:15px;color:var(--ink);opacity:0.72;line-height:1.7;max-width:420px;}
   .space-divider{height:1px;background:rgba(0,0,0,0.07);margin:0 3rem;}
 
+  /* --- Συμπαγείς κάρτες (νέο, μοντέρνο στυλ) --- */
+  .tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2rem;padding:0 3rem 3rem;}
+  .tile-card{position:relative;}
+  .tile-photo{position:relative;height:190px;border-radius:16px;overflow:hidden;background:var(--cream-2);margin-bottom:1rem;}
+  .tile-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .tile-photo.empty{display:flex;align-items:center;justify-content:center;border:2px dashed rgba(0,0,0,0.15);}
+  .tile-photo.empty span{font-size:12px;color:var(--ink);opacity:0.5;padding:0 10px;text-align:center;}
+  .tile-body{position:relative;}
+  .tile-body h3{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:18px;margin-bottom:0.4rem;}
+  .tile-body p{font-size:13.5px;color:var(--ink);opacity:0.72;line-height:1.6;}
+  .tile-card .edit-btn{position:absolute;top:8px;right:8px;z-index:2;}
+  @media (max-width:900px){.tile-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:640px){.tile-grid{grid-template-columns:1fr;padding-left:1.25rem;padding-right:1.25rem;}.tile-card .edit-btn{position:static;margin-bottom:0.5rem;}}
+
+  .class-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;padding:0 3rem 3rem;}
+  .class-card2{background:#fff;border-radius:18px;padding:1.3rem;display:flex;gap:1.1rem;align-items:flex-start;position:relative;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
+  .class-photo2{width:100px;height:100px;border-radius:14px;overflow:hidden;flex:none;background:var(--cream-2);}
+  .class-photo2 img{width:100%;height:100%;object-fit:cover;display:block;}
+  .class-photo2.empty{display:flex;align-items:center;justify-content:center;border:2px dashed rgba(0,0,0,0.15);}
+  .class-photo2.empty span{font-size:9px;color:var(--ink);opacity:0.5;text-align:center;padding:0 4px;}
+  .class-body2{flex:1;min-width:0;}
+  .class-body2 h3{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:17px;margin-bottom:0.3rem;}
+  .class-body2 p.desc{font-size:13px;color:var(--ink);opacity:0.72;line-height:1.55;margin-bottom:0.6rem;}
+  .class-card2 .edit-btn{position:absolute;top:10px;right:10px;}
+  @media (max-width:900px){.class-grid{grid-template-columns:1fr;}}
+  @media (max-width:640px){.class-grid{padding-left:1.25rem;padding-right:1.25rem;}}
+  @media (max-width:480px){.class-card2{flex-direction:column;}.class-photo2{width:100%;height:150px;}.class-card2 .edit-btn{position:static;margin-bottom:0.5rem;}}
+
   .edit-btn{
     position:absolute;top:-2px;right:0;
     display:inline-flex;align-items:center;gap:6px;
@@ -777,7 +805,7 @@ function googleTranslateElementInit() {
       <p><span class="i18n" data-el="Το Τεχνουργείον είναι περισσότερα από μια σκηνή. Κάθε γωνιά του έχει τη δική της ιστορία." data-en="Texnourgeion is more than a stage. Every corner has its own story.">Το Τεχνουργείον είναι περισσότερα από μια σκηνή. Κάθε γωνιά του έχει τη δική της ιστορία.</span></p>
     </div>
 
-    <div id="xoros-sections-container" data-reveal-group></div>
+    <div id="xoros-sections-container" class="tile-grid" data-reveal-group></div>
 
     <div class="add-section-wrap">
       <button class="add-section-btn admin-only" onclick="xorosAddSection()">+ Πρόσθεσε νέα ενότητα</button>
@@ -850,7 +878,7 @@ function googleTranslateElementInit() {
       </div>
     </div>
 
-    <div id="classes-container" data-reveal-group></div>
+    <div id="classes-container" class="class-grid" data-reveal-group></div>
 
     <div class="add-section-wrap">
       <button class="add-section-btn admin-only" onclick="addClassSection()">+ Πρόσθεσε νέο μάθημα</button>
@@ -871,7 +899,7 @@ function googleTranslateElementInit() {
       </div>
     </div>
 
-    <div id="drast-sections-container" data-reveal-group></div>
+    <div id="drast-sections-container" class="tile-grid" data-reveal-group></div>
 
     <div class="add-section-wrap">
       <button class="add-section-btn admin-only" onclick="drastAddSection()">+ Πρόσθεσε νέα υποενότητα</button>
@@ -1050,19 +1078,18 @@ function xorosRenderSections(){
   var sections = xorosLoadSections();
   var html = '';
   sections.forEach(function(s, i){
-    var reverse = (i % 2 === 1) ? ' reverse' : '';
     var photoHtml = s.img
-      ? '<div class="space-photo" id="photo-' + s.slug + '"><img src="' + s.img + '"></div>'
-      : '<div class="space-photo empty" id="photo-' + s.slug + '"><span>Δεν έχει προστεθεί φωτογραφία ακόμα</span></div>';
+      ? '<div class="tile-photo" id="photo-' + s.slug + '"><img src="' + s.img + '"></div>'
+      : '<div class="tile-photo empty" id="photo-' + s.slug + '"><span>Δεν έχει προστεθεί φωτογραφία ακόμα</span></div>';
     var textHtml = s.text
       ? s.text
       : 'Πρόσθεσε μια σύντομη περιγραφή για αυτόν τον χώρο.';
     var deleteBtn = s.builtin ? '' : '<button class="delete-btn" onclick="xorosDeleteSection(\'' + s.slug + '\')">Διαγραφή ενότητας</button>';
-    html += '<div class="space-section reveal' + reverse + '">' +
+    html += '<div class="tile-card reveal">' +
+      '<button class="edit-btn admin-only" onclick="xorosToggleEdit(\'' + s.slug + '\')">✎ Επεξεργασία</button>' +
       photoHtml +
-      '<div class="space-text">' +
-        '<button class="edit-btn admin-only" onclick="xorosToggleEdit(\'' + s.slug + '\')">✎ Επεξεργασία</button>' +
-        '<h2 id="title-display-' + s.slug + '">' + s.title + '</h2>' +
+      '<div class="tile-body">' +
+        '<h3 id="title-display-' + s.slug + '">' + s.title + '</h3>' +
         '<p id="text-display-' + s.slug + '">' + textHtml + '</p>' +
         '<div class="edit-panel" id="panel-' + s.slug + '">' +
           '<label>Τίτλος</label>' +
@@ -1078,8 +1105,7 @@ function xorosRenderSections(){
           '<p class="hint">Δοκιμαστική λειτουργία — αποθηκεύει στον browser σου. Στο πραγματικό site θα είναι μόνιμο, με πρόσβαση μόνο για σένα.</p>' +
         '</div>' +
       '</div>' +
-    '</div>' +
-    '<div class="space-divider"></div>';
+    '</div>';
   });
   document.getElementById('xoros-sections-container').innerHTML = html;
   observeReveals(document.getElementById('xoros-sections-container'));
@@ -1357,10 +1383,9 @@ function renderClasses(){
   var classes = getClasses();
   var html = '';
   classes.forEach(function(c, i){
-    var reverse = (i % 2 === 1) ? ' reverse' : '';
     var photoHtml = c.img
-      ? '<div class="class-photo" id="cphoto-' + c.slug + '"><img src="' + c.img + '"></div>'
-      : '<div class="class-photo empty" id="cphoto-' + c.slug + '"><span>Δεν έχει προστεθεί φωτογραφία ακόμα</span></div>';
+      ? '<div class="class-photo2" id="cphoto-' + c.slug + '"><img src="' + c.img + '"></div>'
+      : '<div class="class-photo2 empty" id="cphoto-' + c.slug + '"><span>Χωρίς φωτο</span></div>';
     var listHtml = (c.tmimata || []).map(function(t){
       return '<li>' + t + '</li>';
     }).join('');
@@ -1368,11 +1393,11 @@ function renderClasses(){
       return '<div class="tmimata-row"><input type="text" class="tmimata-input" value="' + t.replace(/"/g,'&quot;') + '"><button onclick="removeTmimataRow(this)">✕</button></div>';
     }).join('');
     var deleteBtn = c.builtin ? '' : '<button class="delete-btn" onclick="deleteClassSection(\'' + c.slug + '\')">Διαγραφή</button>';
-    html += '<div class="class-section reveal' + reverse + '">' +
+    html += '<div class="class-card2 reveal">' +
+      '<button class="edit-btn admin-only" onclick="toggleClassEdit(\'' + c.slug + '\')">✎ Επεξεργασία</button>' +
       photoHtml +
-      '<div class="class-text">' +
-        '<button class="edit-btn admin-only" onclick="toggleClassEdit(\'' + c.slug + '\')">✎ Επεξεργασία</button>' +
-        '<h2>' + c.title + '</h2>' +
+      '<div class="class-body2">' +
+        '<h3>' + c.title + '</h3>' +
         '<p class="desc">' + (c.desc || 'Πρόσθεσε μια σύντομη περιγραφή.') + '</p>' +
         '<ul class="tmimata-pills">' + listHtml + '</ul>' +
         '<div class="edit-panel" id="cpanel-' + c.slug + '">' +
@@ -1392,8 +1417,7 @@ function renderClasses(){
           '<p class="hint">Δοκιμαστική λειτουργία — αποθηκεύει στον browser σου.</p>' +
         '</div>' +
       '</div>' +
-    '</div>' +
-    '<div class="class-divider"></div>';
+    '</div>';
   });
   document.getElementById('classes-container').innerHTML = html;
   observeReveals(document.getElementById('classes-container'));
@@ -1499,17 +1523,16 @@ function drastRenderSections(){
   var sections = drastLoadSections();
   var html = '';
   sections.forEach(function(s, i){
-    var reverse = (i % 2 === 1) ? ' reverse' : '';
     var photoHtml = s.img
-      ? '<div class="space-photo" id="photo-' + s.slug + '"><img src="' + s.img + '"></div>'
-      : '<div class="space-photo empty" id="photo-' + s.slug + '"><span>Δεν έχει προστεθεί φωτογραφία ακόμα</span></div>';
+      ? '<div class="tile-photo" id="photo-' + s.slug + '"><img src="' + s.img + '"></div>'
+      : '<div class="tile-photo empty" id="photo-' + s.slug + '"><span>Δεν έχει προστεθεί φωτογραφία ακόμα</span></div>';
     var textHtml = s.text ? s.text : 'Πρόσθεσε μια σύντομη περιγραφή για αυτή τη δραστηριότητα.';
     var deleteBtn = s.builtin ? '' : '<button class="delete-btn" onclick="drastDeleteSection(\'' + s.slug + '\')">Διαγραφή ενότητας</button>';
-    html += '<div class="space-section reveal' + reverse + '">' +
+    html += '<div class="tile-card reveal">' +
+      '<button class="edit-btn admin-only" onclick="drastToggleEdit(\'' + s.slug + '\')">✎ Επεξεργασία</button>' +
       photoHtml +
-      '<div class="space-text">' +
-        '<button class="edit-btn admin-only" onclick="drastToggleEdit(\'' + s.slug + '\')">✎ Επεξεργασία</button>' +
-        '<h2 id="title-display-' + s.slug + '">' + s.title + '</h2>' +
+      '<div class="tile-body">' +
+        '<h3 id="title-display-' + s.slug + '">' + s.title + '</h3>' +
         '<p id="text-display-' + s.slug + '">' + textHtml + '</p>' +
         '<div class="edit-panel" id="panel-' + s.slug + '">' +
           '<label>Τίτλος</label>' +
@@ -1525,8 +1548,7 @@ function drastRenderSections(){
           '<p class="hint">Δοκιμαστική λειτουργία — αποθηκεύει στον browser σου.</p>' +
         '</div>' +
       '</div>' +
-    '</div>' +
-    '<div class="space-divider"></div>';
+    '</div>';
   });
   document.getElementById('drast-sections-container').innerHTML = html;
   observeReveals(document.getElementById('drast-sections-container'));
