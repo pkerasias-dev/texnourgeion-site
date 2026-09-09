@@ -576,6 +576,14 @@
 
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;padding:1rem 3rem 2rem;align-items:start;}
   .contact-card{background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:18px;padding:1.6rem;position:relative;}
+
+  .ticket-box,.donate-box{background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:18px;padding:1.8rem;position:relative;margin:0 3rem 3rem;max-width:460px;}
+  .ticket-box p,.donate-box p{font-size:14.5px;color:var(--ink);opacity:0.75;line-height:1.6;margin-bottom:1rem;}
+  .donate-box p strong{opacity:1;}
+  .ticket-btn{display:inline-block;background:var(--red);color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;padding:12px 26px;border-radius:100px;text-decoration:none;transition:opacity .2s;}
+  .ticket-btn:hover{opacity:0.88;}
+  .ticket-btn.disabled{background:rgba(0,0,0,0.15);color:rgba(0,0,0,0.4);pointer-events:none;cursor:not-allowed;}
+  @media (max-width:640px){.ticket-box,.donate-box{margin-left:1.25rem;margin-right:1.25rem;}}
   .contact-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:1.1rem;}
   .contact-row:last-child{margin-bottom:0;}
   .contact-row svg{width:19px;height:19px;stroke:var(--red);flex:none;margin-top:2px;}
@@ -771,10 +779,12 @@ function googleTranslateElementInit() {
       <li><a href="#sec-home"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 11l8-6 8 6M6 10v9h12v-9"/></svg><span class="i18n" data-el="Αρχική" data-en="Home">Αρχική</span></a></li>
       <li><a href="#sec-xoros"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6"/></svg><span class="i18n" data-el="Ο χώρος μας" data-en="Our Space">Ο χώρος μας</span></a></li>
       <li><a href="#sec-par"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M8 3a4 4 0 000 8 4 4 0 000-8zM16 3a4 4 0 010 8M4 20c0-3.3 3.6-5 8-5s8 1.7 8 5"/></svg><span class="i18n" data-el="Παραστάσεις" data-en="Performances">Παραστάσεις</span></a></li>
+      <li><a href="#sec-tickets"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M3 9a2 2 0 002-2V6a1 1 0 011-1h12a1 1 0 011 1v1a2 2 0 000 4v1a1 1 0 01-1 1H6a1 1 0 01-1-1v-1a2 2 0 00-2-2z"/></svg><span class="i18n" data-el="Εισιτήρια" data-en="Tickets">Εισιτήρια</span></a></li>
       <li><a href="#sec-mathimata"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 19V5l12 7-12 7z"/></svg><span class="i18n" data-el="Μαθήματα" data-en="Classes">Μαθήματα</span></a></li>
       <li><a href="#sec-drast"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 14.7 7.1 17.2l.9-5.5-4-3.9L9.5 7z"/></svg><span class="i18n" data-el="Δραστηριότητες" data-en="Activities">Δραστηριότητες</span></a></li>
       <li><a href="#sec-contact"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 5h16v11H8l-4 4V5z"/></svg><span class="i18n" data-el="Επικοινωνία" data-en="Contact">Επικοινωνία</span></a></li>
       <li><a href="#sec-radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><span class="i18n" data-el="Live radio" data-en="Live Radio">Live radio</span></a></li>
+      <li><a href="#sec-donate"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s-7-4.35-9.5-8.5C.8 9 2.5 5.5 6 5c2-.3 3.8.8 6 3 2.2-2.2 4-3.3 6-3 3.5.5 5.2 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><span class="i18n" data-el="Δωρεές" data-en="Donate">Δωρεές</span></a></li>
     </ul>
     <div class="side-footer">
       <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M15 8h2V5h-2a3 3 0 00-3 3v2H9v3h3v6h3v-6h2l1-3h-3V8z"/></svg></a>
@@ -870,6 +880,25 @@ function googleTranslateElementInit() {
 
 </section>
 
+<section id="sec-tickets" class="onepage-section" style="background:#B39DDB;">
+      <div class="section-divider"><svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,40 C300,100 900,-20 1200,40 L1200,120 L0,120 Z" fill="#B39DDB"/></svg></div>
+    <div class="page-header reveal">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>Εισιτήρια</div>
+      <h1><span class="i18n" data-el="Κλείστε τη θέση σας" data-en="Reserve your seat">Κλείστε τη θέση σας</span></h1>
+      <p><span class="i18n" data-el="Για τις επόμενες παραστάσεις μας, κάνε κράτηση online." data-en="For our upcoming shows, book online.">Για τις επόμενες παραστάσεις μας, κάνε κράτηση online.</span></p>
+    </div>
+    <div class="ticket-box reveal">
+      <button class="edit-btn admin-only" onclick="toggleTicketEdit()">✎ Επεξεργασία</button>
+      <p id="ticket-note-display">Σύντομα διαθέσιμο για online κράτηση.</p>
+      <a id="ticket-btn" class="ticket-btn disabled" href="#" target="_blank" rel="noopener">Κλείστε θέση →</a>
+      <div class="edit-panel" id="ticket-edit-panel">
+        <label>Σύνδεσμος στη σελίδα του Τεχνουργείου στο more.com</label>
+        <input type="text" id="ticket-url-input" placeholder="https://www.more.com/...">
+        <p class="hint">Άφησέ το κενό για να μείνει το κουμπί ανενεργό.</p>
+        <div class="btn-row"><button class="save-btn" onclick="saveTicketUrl()">Αποθήκευση</button></div>
+      </div>
+    </div>
+</section>
 <section id="sec-mathimata" class="onepage-section" style="background:#E9C563;">
       <div class="section-divider"><svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,10 Q600,130 1200,10 L1200,120 L0,120 Z" fill="#E9C563"/></svg></div>
     <div class="page-header reveal">
@@ -950,7 +979,7 @@ function googleTranslateElementInit() {
     
     <div class="weekly-schedule">
       <h2><span class="i18n" data-el="Εβδομαδιαίο πρόγραμμα" data-en="Weekly schedule">Εβδομαδιαίο πρόγραμμα</span></h2>
-      <button class="sched-edit-btn" onclick="toggleSchedEdit()">✎ Επεξεργασία προγράμματος</button>
+      <button class="sched-edit-btn admin-only" onclick="toggleSchedEdit()">✎ Επεξεργασία προγράμματος</button>
       <div id="sched-table-wrap"></div>
       <div class="sched-save-row" id="sched-save-row">
         <button onclick="saveSchedule()">Αποθήκευση προγράμματος</button>
@@ -960,6 +989,29 @@ function googleTranslateElementInit() {
 
 </section>
 
+<section id="sec-donate" class="onepage-section" style="background:#7FCDBB;">
+      <div class="section-divider"><svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,10 L1200,120 Z" fill="#7FCDBB"/></svg></div>
+    <div class="page-header reveal">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>Στήριξέ μας</div>
+      <h1><span class="i18n" data-el="Κάνε μια δωρεά" data-en="Make a donation">Κάνε μια δωρεά</span></h1>
+      <p><span class="i18n" data-el="Κάθε δωρεά μάς βοηθά να συνεχίσουμε τις δράσεις του Τεχνουργείου." data-en="Every donation helps us continue Texnourgeion's activities.">Κάθε δωρεά μάς βοηθά να συνεχίσουμε τις δράσεις του Τεχνουργείου.</span></p>
+    </div>
+    <div class="donate-box reveal">
+      <button class="edit-btn admin-only" onclick="toggleDonateEdit()">✎ Επεξεργασία</button>
+      <p><strong>Δικαιούχος:</strong> <span id="donate-name-display">—</span></p>
+      <p><strong>IBAN / Viva:</strong> <span id="donate-iban-display">—</span></p>
+      <p id="donate-note-display"></p>
+      <div class="edit-panel" id="donate-edit-panel">
+        <label>Δικαιούχος</label>
+        <input type="text" id="donate-name-input" placeholder="Σύλλογος Τεχνουργείον">
+        <label>IBAN ή σύνδεσμος Viva</label>
+        <input type="text" id="donate-iban-input" placeholder="GR.. ή https://...">
+        <label>Σημείωση (προαιρετικό)</label>
+        <textarea id="donate-note-input"></textarea>
+        <div class="btn-row"><button class="save-btn" onclick="saveDonate()">Αποθήκευση</button></div>
+      </div>
+    </div>
+</section>
 <section id="sec-contact" class="onepage-section" style="background:#171310;">
       <div class="section-divider"><svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 Q600,-20 1200,120 Z" fill="#171310"/></svg></div>
     <div class="contact-hero">
@@ -1704,6 +1756,67 @@ function saveSchedule(){
 }
 
 renderSchedule();
+
+// --- Εισιτήρια ---
+function renderTicket(){
+  var url = (localStorage.getItem('ticket_url') || '').trim();
+  var btn = document.getElementById('ticket-btn');
+  var note = document.getElementById('ticket-note-display');
+  if(!btn) return;
+  if(url){
+    btn.href = url;
+    btn.classList.remove('disabled');
+    btn.removeAttribute('aria-disabled');
+    note.textContent = 'Κάνε κράτηση θέσης online μέσω more.com.';
+  } else {
+    btn.href = '#';
+    btn.classList.add('disabled');
+    btn.setAttribute('aria-disabled','true');
+    note.textContent = 'Σύντομα διαθέσιμο για online κράτηση.';
+  }
+  var input = document.getElementById('ticket-url-input');
+  if(input) input.value = url;
+}
+function toggleTicketEdit(){
+  document.getElementById('ticket-edit-panel').classList.toggle('open');
+}
+function saveTicketUrl(){
+  var url = document.getElementById('ticket-url-input').value.trim();
+  localStorage.setItem('ticket_url', url);
+  toggleTicketEdit();
+  renderTicket();
+}
+renderTicket();
+renderDonate();
+TexPersist.ready.then(function(){ renderTicket(); renderDonate(); });
+
+// --- Δωρεές ---
+function renderDonate(){
+  var name = localStorage.getItem('donate_name') || '';
+  var iban = localStorage.getItem('donate_iban') || '';
+  var note = localStorage.getItem('donate_note') || '';
+  var nameEl = document.getElementById('donate-name-display');
+  if(!nameEl) return;
+  nameEl.textContent = name || '—';
+  document.getElementById('donate-iban-display').textContent = iban || '—';
+  document.getElementById('donate-note-display').textContent = note;
+  var ni = document.getElementById('donate-name-input');
+  var ii = document.getElementById('donate-iban-input');
+  var noi = document.getElementById('donate-note-input');
+  if(ni) ni.value = name;
+  if(ii) ii.value = iban;
+  if(noi) noi.value = note;
+}
+function toggleDonateEdit(){
+  document.getElementById('donate-edit-panel').classList.toggle('open');
+}
+function saveDonate(){
+  localStorage.setItem('donate_name', document.getElementById('donate-name-input').value.trim());
+  localStorage.setItem('donate_iban', document.getElementById('donate-iban-input').value.trim());
+  localStorage.setItem('donate_note', document.getElementById('donate-note-input').value.trim());
+  toggleDonateEdit();
+  renderDonate();
+}
 
 window.addEventListener('DOMContentLoaded', function(){
   var savedName = localStorage.getItem('radio_name');
