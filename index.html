@@ -1074,6 +1074,37 @@ function xorosLoadSections(){
   });
 }
 
+var observeReveals = (function(){
+  var seen = new WeakSet();
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'}) : null;
+
+  return function(root){
+    var scope = root || document;
+    var groups = scope.querySelectorAll('[data-reveal-group]');
+    groups.forEach(function(group){
+      var items = group.querySelectorAll('.reveal');
+      items.forEach(function(el, i){
+        if(!el.style.transitionDelay) el.style.transitionDelay = Math.min(i * 70, 420) + 'ms';
+      });
+    });
+    var all = scope.querySelectorAll('.reveal');
+    all.forEach(function(el){
+      if(seen.has(el)) return;
+      seen.add(el);
+      if(io) io.observe(el);
+      else el.classList.add('in-view');
+    });
+  };
+})();
+document.addEventListener('DOMContentLoaded', function(){ observeReveals(); });
+
 function xorosRenderSections(){
   var sections = xorosLoadSections();
   var html = '';
@@ -1702,36 +1733,6 @@ function toggleSocialEdit(){
 }
 
 // --- Κίνηση εμφάνισης κατά το σκρολάρισμα ---
-var observeReveals = (function(){
-  var seen = new WeakSet();
-  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        entry.target.classList.add('in-view');
-        io.unobserve(entry.target);
-      }
-    });
-  }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'}) : null;
-
-  return function(root){
-    var scope = root || document;
-    var groups = scope.querySelectorAll('[data-reveal-group]');
-    groups.forEach(function(group){
-      var items = group.querySelectorAll('.reveal');
-      items.forEach(function(el, i){
-        if(!el.style.transitionDelay) el.style.transitionDelay = Math.min(i * 70, 420) + 'ms';
-      });
-    });
-    var all = scope.querySelectorAll('.reveal');
-    all.forEach(function(el){
-      if(seen.has(el)) return;
-      seen.add(el);
-      if(io) io.observe(el);
-      else el.classList.add('in-view');
-    });
-  };
-})();
-document.addEventListener('DOMContentLoaded', function(){ observeReveals(); });
 
 // --- Μόνιμη αποθήκευση περιεχομένου μέσω GitHub (αντί για localStorage) ---
 function loadSiteData(){
