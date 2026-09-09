@@ -583,6 +583,14 @@
 
 
   .onepage-section{padding-top:1px;padding-bottom:1px;position:relative;}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .65s cubic-bezier(.22,.61,.36,1), transform .65s cubic-bezier(.22,.61,.36,1);will-change:opacity,transform;}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+  .tmimata-pills{list-style:none;display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;}
+  .tmimata-pills li{font-size:12.5px;font-weight:600;padding:5px 13px;border-radius:999px;background:rgba(0,0,0,0.06);color:var(--ink);}
+  #sec-mathimata .tmimata-pills li{background:rgba(0,0,0,0.08);}
   .section-divider{position:absolute;top:0;left:0;width:100%;overflow:hidden;line-height:0;transform:translateY(-99%);pointer-events:none;}
   .section-divider svg{display:block;width:100%;height:70px;}
   @media (max-width:700px){.section-divider svg{height:40px;}}
@@ -763,13 +771,13 @@ function googleTranslateElementInit() {
 
 <section id="sec-xoros" class="onepage-section" style="background:#88CEA6;">
       <div class="section-divider"><svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,40 C300,100 900,-20 1200,40 L1200,120 L0,120 Z" fill="#88CEA6"/></svg></div>
-    <div class="page-header">
+    <div class="page-header reveal">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Γνώρισέ μας</div>
       <h1><span class="i18n" data-el="Ο χώρος μας" data-en="Our Space">Ο χώρος μας</span> <a href="o-xoros-mas.html" class="enter-page-btn"><span class="i18n" data-el="Είσοδος →" data-en="Enter →">Είσοδος →</span></a></h1>
       <p><span class="i18n" data-el="Το Τεχνουργείον είναι περισσότερα από μια σκηνή. Κάθε γωνιά του έχει τη δική της ιστορία." data-en="Texnourgeion is more than a stage. Every corner has its own story.">Το Τεχνουργείον είναι περισσότερα από μια σκηνή. Κάθε γωνιά του έχει τη δική της ιστορία.</span></p>
     </div>
 
-    <div id="xoros-sections-container"></div>
+    <div id="xoros-sections-container" data-reveal-group></div>
 
     <div class="add-section-wrap">
       <button class="add-section-btn admin-only" onclick="xorosAddSection()">+ Πρόσθεσε νέα ενότητα</button>
@@ -780,7 +788,7 @@ function googleTranslateElementInit() {
 
 <section id="sec-par" class="onepage-section" style="background:#ED8882;">
       <div class="section-divider"><svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,120 L1200,10 L1200,120 Z" fill="#ED8882"/></svg></div>
-    <div class="page-header">
+    <div class="page-header reveal">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Στη σκηνή μας</div>
       <h1><span class="i18n" data-el="Παραστάσεις" data-en="Performances">Παραστάσεις</span> <a href="parastaseis.html" class="enter-page-btn"><span class="i18n" data-el="Είσοδος →" data-en="Enter →">Είσοδος →</span></a></h1>
       <p><span class="i18n" data-el="Η σκηνή του Τεχνουργείου φιλοξενεί δεκάδες παραστάσεις κάθε χρόνο. Πάτα σε μια αφίσα για να δεις φωτογραφίες, σχόλια και δελτία τύπου." data-en="The Texnourgeion stage hosts dozens of performances every year. Tap a poster to see photos, comments and press releases.">Η σκηνή του Τεχνουργείου φιλοξενεί δεκάδες παραστάσεις κάθε χρόνο. Πάτα σε μια αφίσα για να δεις φωτογραφίες, σχόλια και δελτία τύπου.</span></p>
@@ -831,7 +839,7 @@ function googleTranslateElementInit() {
 
 <section id="sec-mathimata" class="onepage-section" style="background:#E9C563;">
       <div class="section-divider"><svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,10 Q600,130 1200,10 L1200,120 L0,120 Z" fill="#E9C563"/></svg></div>
-    <div class="page-header">
+    <div class="page-header reveal">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Μάθε μαζί μας</div>
       <h1><span class="i18n" data-el="Μαθήματα" data-en="Classes">Μαθήματα</span> <a href="mathimata.html" class="enter-page-btn"><span class="i18n" data-el="Είσοδος →" data-en="Enter →">Είσοδος →</span></a></h1>
       <p><span class="i18n" data-el="Τμήματα χορού, θεάτρου, μουσικής και χορωδίας για παιδιά και ενήλικες, όλη τη σεζόν." data-en="Dance, theatre, music and choir classes for children and adults, all season.">Τμήματα χορού, θεάτρου, μουσικής και χορωδίας για παιδιά και ενήλικες, όλη τη σεζόν.</span></p>
@@ -842,7 +850,7 @@ function googleTranslateElementInit() {
       </div>
     </div>
 
-    <div id="classes-container"></div>
+    <div id="classes-container" data-reveal-group></div>
 
     <div class="add-section-wrap">
       <button class="add-section-btn admin-only" onclick="addClassSection()">+ Πρόσθεσε νέο μάθημα</button>
@@ -852,7 +860,7 @@ function googleTranslateElementInit() {
 
 <section id="sec-drast" class="onepage-section" style="background:#7AB4EC;">
       <div class="section-divider"><svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,50 C400,-20 800,120 1200,30 L1200,120 L0,120 Z" fill="#7AB4EC"/></svg></div>
-    <div class="page-header">
+    <div class="page-header reveal">
       <div class="eyebrow"><span class="eyebrow-dot"></span>Έξω από τη σκηνή</div>
       <h1><span class="i18n" data-el="Δραστηριότητες" data-en="Activities">Δραστηριότητες</span> <a href="drastiriotites.html" class="enter-page-btn"><span class="i18n" data-el="Είσοδος →" data-en="Enter →">Είσοδος →</span></a></h1>
       <p><span class="i18n" data-el="Στιγμές που ζούμε μαζί ως κοινότητα — γλέντια, εκδρομές και ό,τι μας φέρνει πιο κοντά." data-en="Moments we share as a community — feasts, trips and everything that brings us closer.">Στιγμές που ζούμε μαζί ως κοινότητα — γλέντια, εκδρομές και ό,τι μας φέρνει πιο κοντά.</span></p>
@@ -863,7 +871,7 @@ function googleTranslateElementInit() {
       </div>
     </div>
 
-    <div id="drast-sections-container"></div>
+    <div id="drast-sections-container" data-reveal-group></div>
 
     <div class="add-section-wrap">
       <button class="add-section-btn admin-only" onclick="drastAddSection()">+ Πρόσθεσε νέα υποενότητα</button>
@@ -881,7 +889,7 @@ function googleTranslateElementInit() {
       <span class="members-note"><span class="i18n" data-el="Πρόσβαση μόνο για μέλη — θα σου ζητηθεί ο κοινός κωδικός του συλλόγου" data-en="Members only — you'll be asked for the club's shared access code">Πρόσβαση μόνο για μέλη — θα σου ζητηθεί ο κοινός κωδικός του συλλόγου</span></span>
     </div>
 
-    <div class="page-header">
+    <div class="page-header reveal">
       <button class="page-edit-btn admin-only" onclick="radioToggleEdit()">✎ Επεξεργασία</button>
       <div class="edit-panel" id="radio-edit-panel">
         <label>Όνομα σταθμού</label>
@@ -893,16 +901,16 @@ function googleTranslateElementInit() {
       </div>
     </div>
 
-    <div class="info-grid">
-      <div class="info-card">
+    <div class="info-grid" data-reveal-group>
+      <div class="info-card reveal">
         <h3><span class="i18n" data-el="24/7 μουσική" data-en="24/7 music">24/7 μουσική</span></h3>
         <p><span class="i18n" data-el="Αυτόματη αναπαραγωγή από τη λίστα τραγουδιών του συλλόγου, όλο το εικοσιτετράωρο." data-en="Automatic playback from the club's song library, around the clock.">Αυτόματη αναπαραγωγή από τη λίστα τραγουδιών του συλλόγου, όλο το εικοσιτετράωρο.</span></p>
       </div>
-      <div class="info-card">
+      <div class="info-card reveal">
         <h3><span class="i18n" data-el="Ζωντανές εκπομπές" data-en="Live shows">Ζωντανές εκπομπές</span></h3>
         <p><span class="i18n" data-el="Μέλη του Τεχνουργείου μπορούν να εκπέμψουν live από απόσταση — όποτε συνδεθεί DJ, παίρνει αυτόματα προτεραιότητα." data-en="Texnourgeion members can broadcast live remotely — whenever a DJ connects, it automatically takes priority.">Μέλη του Τεχνουργείου μπορούν να εκπέμψουν live από απόσταση — όποτε συνδεθεί DJ, παίρνει αυτόματα προτεραιότητα.</span></p>
       </div>
-      <div class="info-card">
+      <div class="info-card reveal">
         <h3><span class="i18n" data-el="Για μέλη" data-en="For members">Για μέλη</span></h3>
         <p><span class="i18n" data-el="Η ακρόαση γίνεται με έναν κοινό κωδικό πρόσβασης, διαθέσιμο στα μέλη του συλλόγου." data-en="Listening requires a shared access code, available to club members.">Η ακρόαση γίνεται με έναν κοινό κωδικό πρόσβασης, διαθέσιμο στα μέλη του συλλόγου.</span></p>
       </div>
@@ -927,7 +935,7 @@ function googleTranslateElementInit() {
     </div>
 
     <div class="contact-grid">
-      <div class="contact-card">
+      <div class="contact-card reveal">
         <div class="contact-row">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
           <span id="addr-display">Ε.Ο Ναυπάκτου – Ιτέας, Ναύπακτος 30300, Ελλάδα</span>
@@ -1050,7 +1058,7 @@ function xorosRenderSections(){
       ? s.text
       : 'Πρόσθεσε μια σύντομη περιγραφή για αυτόν τον χώρο.';
     var deleteBtn = s.builtin ? '' : '<button class="delete-btn" onclick="xorosDeleteSection(\'' + s.slug + '\')">Διαγραφή ενότητας</button>';
-    html += '<div class="space-section' + reverse + '">' +
+    html += '<div class="space-section reveal' + reverse + '">' +
       photoHtml +
       '<div class="space-text">' +
         '<button class="edit-btn admin-only" onclick="xorosToggleEdit(\'' + s.slug + '\')">✎ Επεξεργασία</button>' +
@@ -1074,6 +1082,7 @@ function xorosRenderSections(){
     '<div class="space-divider"></div>';
   });
   document.getElementById('xoros-sections-container').innerHTML = html;
+  observeReveals(document.getElementById('xoros-sections-container'));
 }
 
 
@@ -1285,7 +1294,7 @@ function renderAll(){
   subs.forEach(function(sub){
     var posters = getPosters(sub.slug);
     var cardsHtml = posters.map(function(p){
-      return '<div class="poster-card" onclick="openModal(\'' + sub.slug + '\',\'' + p.id + '\')">' +
+      return '<div class="poster-card reveal" onclick="openModal(\'' + sub.slug + '\',\'' + p.id + '\')">' +
         '<img src="' + p.img + '">' +
         '<div class="poster-label">' + p.title + '</div>' +
       '</div>';
@@ -1294,7 +1303,7 @@ function renderAll(){
       '<span class="plus">+</span><span>Πρόσθεσε αφίσα</span>' +
       '<input type="file" accept="image/*" id="poster-file-' + sub.slug + '" style="display:none" onchange="handleNewPoster(\'' + sub.slug + '\')">' +
     '</div>';
-    html += '<div class="sub-block">' +
+    html += '<div class="sub-block reveal">' +
       '<div class="sub-head">' +
         '<h2>' + sub.title + '</h2>' +
         '<button class="edit-btn admin-only" onclick="toggleSubEdit(\'' + sub.slug + '\')">✎ Επεξεργασία</button>' +
@@ -1303,10 +1312,11 @@ function renderAll(){
         '<input type="text" id="subtitle-input-' + sub.slug + '" value="' + sub.title.replace(/"/g,'&quot;') + '">' +
         '<button onclick="saveSubTitle(\'' + sub.slug + '\')">Αποθήκευση</button>' +
       '</div>' +
-      '<div class="poster-grid">' + cardsHtml + addTile + '</div>' +
+      '<div class="poster-grid" data-reveal-group>' + cardsHtml + addTile + '</div>' +
     '</div>';
   });
   document.getElementById('subsections-container').innerHTML = html;
+  observeReveals(document.getElementById('subsections-container'));
 }
 
 
@@ -1352,19 +1362,19 @@ function renderClasses(){
       ? '<div class="class-photo" id="cphoto-' + c.slug + '"><img src="' + c.img + '"></div>'
       : '<div class="class-photo empty" id="cphoto-' + c.slug + '"><span>Δεν έχει προστεθεί φωτογραφία ακόμα</span></div>';
     var listHtml = (c.tmimata || []).map(function(t){
-      return '<li><span class="dot"></span>' + t + '</li>';
+      return '<li>' + t + '</li>';
     }).join('');
     var tmimataEditRows = (c.tmimata || []).map(function(t, idx){
       return '<div class="tmimata-row"><input type="text" class="tmimata-input" value="' + t.replace(/"/g,'&quot;') + '"><button onclick="removeTmimataRow(this)">✕</button></div>';
     }).join('');
     var deleteBtn = c.builtin ? '' : '<button class="delete-btn" onclick="deleteClassSection(\'' + c.slug + '\')">Διαγραφή</button>';
-    html += '<div class="class-section' + reverse + '">' +
+    html += '<div class="class-section reveal' + reverse + '">' +
       photoHtml +
       '<div class="class-text">' +
         '<button class="edit-btn admin-only" onclick="toggleClassEdit(\'' + c.slug + '\')">✎ Επεξεργασία</button>' +
         '<h2>' + c.title + '</h2>' +
         '<p class="desc">' + (c.desc || 'Πρόσθεσε μια σύντομη περιγραφή.') + '</p>' +
-        '<ul class="class-list">' + listHtml + '</ul>' +
+        '<ul class="tmimata-pills">' + listHtml + '</ul>' +
         '<div class="edit-panel" id="cpanel-' + c.slug + '">' +
           '<label>Τίτλος</label>' +
           '<input type="text" id="ctitle-' + c.slug + '" value="' + c.title.replace(/"/g,'&quot;') + '">' +
@@ -1386,6 +1396,7 @@ function renderClasses(){
     '<div class="class-divider"></div>';
   });
   document.getElementById('classes-container').innerHTML = html;
+  observeReveals(document.getElementById('classes-container'));
 }
 
 function mathimataTogglePageAdd(){
@@ -1494,7 +1505,7 @@ function drastRenderSections(){
       : '<div class="space-photo empty" id="photo-' + s.slug + '"><span>Δεν έχει προστεθεί φωτογραφία ακόμα</span></div>';
     var textHtml = s.text ? s.text : 'Πρόσθεσε μια σύντομη περιγραφή για αυτή τη δραστηριότητα.';
     var deleteBtn = s.builtin ? '' : '<button class="delete-btn" onclick="drastDeleteSection(\'' + s.slug + '\')">Διαγραφή ενότητας</button>';
-    html += '<div class="space-section' + reverse + '">' +
+    html += '<div class="space-section reveal' + reverse + '">' +
       photoHtml +
       '<div class="space-text">' +
         '<button class="edit-btn admin-only" onclick="drastToggleEdit(\'' + s.slug + '\')">✎ Επεξεργασία</button>' +
@@ -1518,6 +1529,7 @@ function drastRenderSections(){
     '<div class="space-divider"></div>';
   });
   document.getElementById('drast-sections-container').innerHTML = html;
+  observeReveals(document.getElementById('drast-sections-container'));
 }
 
 function drastTogglePageAdd(){
@@ -1666,6 +1678,38 @@ function saveContact(){
 function toggleSocialEdit(){
   document.getElementById('social-edit-panel').classList.toggle('open');
 }
+
+// --- Κίνηση εμφάνισης κατά το σκρολάρισμα ---
+var observeReveals = (function(){
+  var seen = new WeakSet();
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'}) : null;
+
+  return function(root){
+    var scope = root || document;
+    var groups = scope.querySelectorAll('[data-reveal-group]');
+    groups.forEach(function(group){
+      var items = group.querySelectorAll('.reveal');
+      items.forEach(function(el, i){
+        if(!el.style.transitionDelay) el.style.transitionDelay = Math.min(i * 70, 420) + 'ms';
+      });
+    });
+    var all = scope.querySelectorAll('.reveal');
+    all.forEach(function(el){
+      if(seen.has(el)) return;
+      seen.add(el);
+      if(io) io.observe(el);
+      else el.classList.add('in-view');
+    });
+  };
+})();
+document.addEventListener('DOMContentLoaded', function(){ observeReveals(); });
 
 // --- Μόνιμη αποθήκευση περιεχομένου μέσω GitHub (αντί για localStorage) ---
 function loadSiteData(){
